@@ -1,0 +1,18 @@
+<div class="currency-input">
+    <input
+      type="number"
+      [value]="amount | currencyConvert: fromCurrencyCode : currencyCode | async"
+      (input)="onAmountChange($event)"
+      min="0"
+      class="amount-input"
+    />
+  
+    <select
+      (change)="currencyCodeChange($event)"
+      class="currency-select"
+    >
+      <option *ngFor="let currency of currencies" [value]="currency.code">
+        {{ currency.name }} ({{ currency.code }})
+      </option>
+    </select>
+  </div>

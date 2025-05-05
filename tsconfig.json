@@ -17,6 +17,9 @@
       ],
       "ui": [
         "./dist/ui"
+      ],
+      "utils": [
+        "./dist/utils"
       ]
     },
     "noImplicitOverride": true,

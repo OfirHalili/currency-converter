@@ -6,6 +6,9 @@
     "outDir": "./dist/out-tsc",
     "strict": true,
     "paths": {
+      "core": [
+        "./dist/core"
+      ],
       "features": [
         "./dist/features"
       ],

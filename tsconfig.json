@@ -8,6 +8,9 @@
     "paths": {
       "features": [
         "./dist/features"
+      ],
+      "ui": [
+        "./dist/ui"
       ]
     },
     "noImplicitOverride": true,

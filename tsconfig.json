@@ -12,6 +12,9 @@
       "features": [
         "./dist/features"
       ],
+      "shared": [
+        "./dist/shared"
+      ],
       "ui": [
         "./dist/ui"
       ]

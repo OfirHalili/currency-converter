@@ -1,0 +1,21 @@
+<div *ngIf="conversionHistory.length > 0; else noHistory">
+  <table class="history-table">
+    <thead>
+      <tr>
+        <th>Currency Code</th>
+        <th>Amount</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of conversionHistory">
+        <td>{{ item.currencyCode }}</td>
+        <td>{{ item.amount }}</td>
+        <td>{{ item.timestamp | date : "short" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noHistory>
+  <p>No conversion history yet.</p>
+</ng-template>

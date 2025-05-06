@@ -1,24 +1,36 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import { CurrencyService } from '../../../../core/src/lib/services/currency/currency.service';
+import { CurrencyInputComponent } from '../../../../shared/src/public-api';
 import { CurrencyInputValue } from '../../../../utils/src/public-api';
 import { MatTabsModule } from '@angular/material/tabs';
-import { CurrencyExchangeTabComponent } from './currency-exchange-tab.component';
-import { CurrencyExchangeHistoryTabComponent } from "./currency-exchange-history-tab.component";
 
 @Component({
-  selector: 'currency-exchange',
-  templateUrl: './currency-exchange.component.html',
-  styleUrls: ['./currency-exchange.component.scss'],
+  selector: 'currency-exchange-tab',
+  templateUrl: './currency-exchange-tab.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabsModule, CurrencyExchangeTabComponent, CurrencyExchangeTabComponent, CurrencyExchangeHistoryTabComponent],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    MatTabsModule,
+    CurrencyInputComponent,
+  ],
 })
-export class CurrencyExchangeComponent {
+export class CurrencyExchangeTabComponent {
+  private currencyService: CurrencyService = inject(CurrencyService);
+
   private readonly currencyInputValue: BehaviorSubject<CurrencyInputValue> =
     new BehaviorSubject({ currencyCode: '', amount: 1 });
 
   protected readonly currencyInputValue$ =
     this.currencyInputValue.asObservable();
+  protected readonly currencies$ = this.currencyService.fetchCurrencies$();
 
   protected conversionHistory: Array<CurrencyInputValue & { timestamp: Date }> =
     [];

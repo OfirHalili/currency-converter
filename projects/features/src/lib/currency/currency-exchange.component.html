@@ -1,22 +1,9 @@
-<div *ngIf="currencies$ | async as currencies; else loading">
-  <ng-container *ngIf="currencyInputValue$ | async as currencyInputValue">
-    <currency-input
-      class="currency-input"
-      [amount]="currencyInputValue.amount"
-      [fromCurrencyCode]="currencyInputValue.currencyCode"
-      [currencies]="currencies"
-      [isPrimary]="true"
-      (currencyChange)="currencyChange($event)"
-    ></currency-input>
-    <currency-input
-      class="currency-input"
-      [amount]="currencyInputValue.amount"
-      [fromCurrencyCode]="currencyInputValue.currencyCode"
-      [currencies]="currencies"
-      (currencyChange)="currencyChange($event)"
-    ></currency-input>
-  </ng-container>
-</div>
-<ng-template #loading>
-  <p>Loading currencies...</p>
-</ng-template>
+<mat-tab-group>
+  <mat-tab label="Convert">
+    <currency-exchange-tab></currency-exchange-tab>
+  </mat-tab>
+
+  <mat-tab label="History">
+   <currency-exchange-history-tab [conversionHistory]="conversionHistory"></currency-exchange-history-tab>
+  </mat-tab>
+</mat-tab-group>

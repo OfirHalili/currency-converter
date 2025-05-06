@@ -3,7 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { CurrencyInputValue } from '../../../../utils/src/public-api';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CurrencyExchangeTabComponent } from './currency-exchange-tab.component';
-import { CurrencyExchangeHistoryTabComponent } from "./currency-exchange-history-tab.component";
+import { CurrencyExchangeHistoryTabComponent } from './currency-exchange-history-tab.component';
+import { CurrencyHistoryStore } from '../../../../core/src/lib/store/currency-history.store';
 
 @Component({
   selector: 'currency-exchange',
@@ -11,21 +12,18 @@ import { CurrencyExchangeHistoryTabComponent } from "./currency-exchange-history
   styleUrls: ['./currency-exchange.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabsModule, CurrencyExchangeTabComponent, CurrencyExchangeTabComponent, CurrencyExchangeHistoryTabComponent],
+  imports: [
+    MatTabsModule,
+    CurrencyExchangeTabComponent,
+    CurrencyExchangeTabComponent,
+    CurrencyExchangeHistoryTabComponent,
+  ],
 })
 export class CurrencyExchangeComponent {
-  private readonly currencyInputValue: BehaviorSubject<CurrencyInputValue> =
-    new BehaviorSubject({ currencyCode: '', amount: 1 });
-
-  protected readonly currencyInputValue$ =
-    this.currencyInputValue.asObservable();
-
-  protected conversionHistory: Array<CurrencyInputValue & { timestamp: Date }> =
-    [];
+  private currencyHistoryStore = inject(CurrencyHistoryStore);
 
   protected currencyChange(currencyInputValue: CurrencyInputValue): void {
-    this.currencyInputValue.next(currencyInputValue);
-    this.conversionHistory.unshift({
+    this.currencyHistoryStore.addToHistory({
       ...currencyInputValue,
       timestamp: new Date(),
     });

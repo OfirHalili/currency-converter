@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   Input,
 } from '@angular/core';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
-import { CurrencyInputValue } from '../../../../utils/src/public-api';
+import { NgIf, NgFor, DatePipe, AsyncPipe } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CurrencyHistoryStore } from '../../../../core/src/lib/store/currency-history.store';
 
 @Component({
   selector: 'currency-exchange-history-tab',
@@ -13,9 +14,9 @@ import { MatTabsModule } from '@angular/material/tabs';
   styleUrls: ['./currency-exchange-history-tab.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, NgFor, DatePipe, MatTabsModule],
+  imports: [NgIf, NgFor, DatePipe, MatTabsModule, AsyncPipe],
 })
 export class CurrencyExchangeHistoryTabComponent {
-  @Input() conversionHistory: Array<CurrencyInputValue & { timestamp: Date }> =
-    [];
+  protected currencyHistoryStore = inject(CurrencyHistoryStore);
+
 }

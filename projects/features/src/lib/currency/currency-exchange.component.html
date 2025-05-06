@@ -1,9 +1,9 @@
-<mat-tab-group>
-  <mat-tab label="Convert">
-    <currency-exchange-tab (currencyInputValueChanged)="currencyChange($event)"></currency-exchange-tab>
+<mat-tab-group >
+  <mat-tab label="Convert" >
+    <currency-exchange-tab class="tab" (currencyInputValueChanged)="currencyChange($event)"></currency-exchange-tab>
   </mat-tab>
 
   <mat-tab label="History">
-   <currency-exchange-history-tab></currency-exchange-history-tab>
+   <currency-exchange-history-tab class="tab"></currency-exchange-history-tab>
   </mat-tab>
 </mat-tab-group>

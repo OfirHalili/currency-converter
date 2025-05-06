@@ -12,3 +12,18 @@
     background-color: #f0f0f0;
   }
 }
+
+.clear-button {
+  background-color: #3575e5;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.clear-button:hover {
+  background-color: #0d5ce6;
+}

@@ -1,24 +1,30 @@
-<div *ngIf="currencyHistoryStore.getHistory$() | async as history ; else noHistory">
-  <table class="history-table">
-    <thead>
-      <tr>
-        <th>Base Currency</th>
-        <th>To Currency</th>
-        <th>Amount</th>
-        <th>Converted Amount</th>
-        <th>Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of history">
-        <td>{{ item.baseCurrencyCode }}</td>
-        <td>{{ item.toCurrencyCode }}</td>
-        <td>{{ item.amount }}</td>
-        <td>{{ item.convertedAmount }}</td>
-        <td>{{ item.timestamp | date : "short" }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="currencyHistoryStore.getHistory$() | async as history">
+  <ng-container *ngIf="history.length; else noHistory">
+    <button (click)="currencyHistoryStore.clearHistory()" class="clear-button">
+      🗑️ Clear History
+    </button>
+
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Base Currency</th>
+          <th>To Currency</th>
+          <th>Amount</th>
+          <th>Converted Amount</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of history">
+          <td>{{ item.baseCurrencyCode }}</td>
+          <td>{{ item.toCurrencyCode }}</td>
+          <td>{{ item.amount }}</td>
+          <td>{{ item.convertedAmount }}</td>
+          <td>{{ item.timestamp | date : "short" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
 </div>
 <ng-template #noHistory>
   <p>No conversion history yet.</p>

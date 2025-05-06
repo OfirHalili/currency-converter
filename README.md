@@ -1,45 +1,57 @@
-💱 Currency Converter App
+# 💱 Currency Converter App
+
 This is a simple Angular-based Currency Converter application that allows users to convert between different currencies and view a history of recent conversions.
 
-🧩 Features
-Live Currency Conversion
-Easily convert amounts between currencies using real-time exchange rates.
+## 🧩 Features
 
-Conversion History Tab
-Keep track of all your past conversions in a dedicated history view.
+- **Live Currency Conversion**  
+  Easily convert amounts between currencies using real-time exchange rates.
 
-Modular and Standalone Components
-Built using Angular standalone components and clean separation of concerns.
+- **Conversion History Tab**  
+  Keep track of all your past conversions in a dedicated history view.
 
-📂 Project Structure
-currency-input/ – A reusable component for entering amounts and selecting currencies.
-conversion-history/ – Displays a list of all previously made conversions.
-currency.service.ts – Handles currency rate fetching logic.
-currency-convert.pipe.ts – Temporary pipe used for conversion logic.
-🔧 Setup
-Clone the repo:
+- **Modular and Standalone Components**  
+  Built using Angular standalone components and clean separation of concerns.
 
-git clone https://github.com/your-username/currency-converter.git
-Install dependencies:
+## 📂 Project Structure
 
-npm install
-Run the app:
+- `currency-input/` – A reusable component for entering amounts and selecting currencies.
+- `conversion-history/` – Displays a list of all previously made conversions.
+- `currency.service.ts` – Handles currency rate fetching logic.
+- `currency-convert.pipe.ts` – Temporary pipe used for conversion logic.
 
-ng serve
-Visit http://localhost:4200
+## 🔧 Setup
 
-📌 TODO
-❌ Remove CurrencyConvertPipe
-Refactor the app to rely fully on CurrencyService instead of using the pipe.
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/your-username/currency-converter.git
+   ```
 
-🎨 Add CSS Styling
-Improve the visual design and responsiveness of the app.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-📈 Add Chart Support
-Visualize conversion trends (e.g., line chart of historical rates).
+3. Run the app:
+   ```bash
+   ng serve
+   ```
 
-🧪 Add Unit and Integration Tests
-Cover all components and services with automated tests.
+4. Visit `http://localhost:4200`
 
-🖌️ Improve UX/UI Styling
-Enhance layout, spacing, colors, and overall visual hierarchy.
+## 📌 TODO
+
+- ❌ **Remove `CurrencyConvertPipe`**  
+  Refactor the app to rely fully on `CurrencyService` instead of using the pipe.
+
+- 🎨 **Add CSS Styling**  
+  Improve the visual design and responsiveness of the app.
+
+- 📈 **Add Chart Support**  
+  Visualize conversion trends (e.g., line chart of historical rates).
+
+- 🧪 **Add Unit and Integration Tests**  
+  Cover all components and services with automated tests.
+
+- 🖌️ **Improve UX/UI Styling**  
+  Enhance layout, spacing, colors, and overall visual hierarchy.

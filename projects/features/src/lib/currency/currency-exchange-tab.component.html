@@ -3,7 +3,8 @@
     <currency-input
       class="currency-input"
       [amount]="currencyInputValue.amount"
-      [fromCurrencyCode]="currencyInputValue.currencyCode"
+      [baseCurrencyCode]="currencyInputValue.baseCurrencyCode"
+      [toCurrencyCode]="currencyInputValue.toCurrencyCode"
       [currencies]="currencies"
       [isPrimary]="true"
       (currencyChange)="currencyChange($event)"
@@ -11,7 +12,8 @@
     <currency-input
       class="currency-input"
       [amount]="currencyInputValue.amount"
-      [fromCurrencyCode]="currencyInputValue.currencyCode"
+      [baseCurrencyCode]="currencyInputValue.baseCurrencyCode"
+      [toCurrencyCode]="currencyInputValue.toCurrencyCode"
       [currencies]="currencies"
       (currencyChange)="currencyChange($event)"
     ></currency-input>

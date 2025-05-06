@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
@@ -11,6 +12,7 @@ import { AsyncPipe, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CurrencyConvertPipe } from '../../../pipes/currency/currency-convert.pipe';
 import { CurrencyInputValue } from '../../../../../../utils/src/public-api';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'currency-input',
@@ -19,49 +21,83 @@ import { CurrencyInputValue } from '../../../../../../utils/src/public-api';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgFor, FormsModule, AsyncPipe, CurrencyConvertPipe],
+  providers: [CurrencyConvertPipe],
 })
 export class CurrencyInputComponent implements OnInit {
   @Input({ required: true }) currencies!: Currency[];
   @Input() isPrimary: boolean = false;
   @Input() amount = 1;
-  @Input() fromCurrencyCode: string = '';
-  @Output() amountChange = new EventEmitter<number>();
+  @Input() baseCurrencyCode: string = '';
+  @Input() toCurrencyCode: string = '';
+
   @Output() currencyChange = new EventEmitter<CurrencyInputValue>();
 
-  protected currencyCode!: string;
+  private currencyConvertPipe = inject(CurrencyConvertPipe);
 
   ngOnInit(): void {
-    this.currencyCode = this.currencies[0].code;
+    this.baseCurrencyCode = this.currencies[0].code;
+    this.toCurrencyCode = this.currencies[0].code;
   }
 
-  public onAmountChange(event: Event): void {
+  public async onAmountChanged(event: Event): Promise<void> {
     const amount = (event.target as HTMLInputElement).value;
 
     const numericValue = parseFloat(amount);
     if (!isNaN(numericValue)) {
       this.amount = numericValue;
-      this.onCurrencyChange();
+      if (!this.isPrimary) {
+        this.amount = await firstValueFrom(
+          this.currencyConvertPipe.transform(
+            this.amount,
+            this.toCurrencyCode,
+            this.baseCurrencyCode
+          )
+        );
+      }
+      this.onCurrencyChange(
+        this.baseCurrencyCode,
+        this.toCurrencyCode,
+        this.amount
+      );
     }
   }
 
-  public currencyCodeChange(event: Event): void {
+  public async onCurrencyCodeChanged(event: Event): Promise<void> {
     const currencyCode = (event.target as HTMLInputElement).value;
     const currency = this.currencies.find(
       (currency) => currency.code === currencyCode
     );
 
     if (currency) {
-      this.currencyCode = currency.code;
       if (this.isPrimary) {
-        this.onCurrencyChange();
+        this.baseCurrencyCode = currency.code;
+      } else {
+        this.toCurrencyCode = currency.code;
       }
+      this.onCurrencyChange(
+        this.baseCurrencyCode,
+        this.toCurrencyCode,
+        this.amount
+      );
     }
   }
 
-  private onCurrencyChange(): void {
+  private async onCurrencyChange(
+    baseCurrencyCode: string,
+    toCurrencyCode: string,
+    amount: number
+  ): Promise<void> {
+    const convertedAmount = await firstValueFrom(
+      this.currencyConvertPipe.transform(
+        this.amount,
+        this.toCurrencyCode,
+        this.baseCurrencyCode
+      ));
     const currencyInputValue: CurrencyInputValue = {
-      amount: this.amount,
-      currencyCode: this.currencyCode,
+      amount,
+      convertedAmount,
+      toCurrencyCode,
+      baseCurrencyCode,
     };
     this.currencyChange.emit(currencyInputValue);
   }

@@ -1,14 +1,14 @@
 <div class="currency-input">
     <input
       type="number"
-      [value]="amount | currencyConvert: fromCurrencyCode : currencyCode | async"
-      (input)="onAmountChange($event)"
+      [value]="isPrimary ? amount : amount | currencyConvert: baseCurrencyCode : toCurrencyCode | async"
+      (input)="onAmountChanged($event)"
       min="0"
       class="amount-input"
     />
   
     <select
-      (change)="currencyCodeChange($event)"
+      (change)="onCurrencyCodeChanged($event)"
       class="currency-select"
     >
       <option *ngFor="let currency of currencies" [value]="currency.code">

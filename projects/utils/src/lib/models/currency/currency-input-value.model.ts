@@ -1,4 +1,6 @@
 export interface CurrencyInputValue {
   amount: number;
-  currencyCode: string;
+  convertedAmount: number;
+  toCurrencyCode: string;
+  baseCurrencyCode: string;
 }

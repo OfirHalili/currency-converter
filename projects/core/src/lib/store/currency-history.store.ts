@@ -30,7 +30,6 @@ export class CurrencyHistoryStore {
 
   public addToHistory(item: CurrencyHistoryItem): void {
     const current = this.getHistory();
-    debugger;
     store.update((state) => ({
       ...state,
       history: [item, ...current],

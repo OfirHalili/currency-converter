@@ -24,14 +24,15 @@ export class CurrencyExchangeTabComponent {
   private currencyService: CurrencyService = inject(CurrencyService);
 
   private readonly currencyInputValue: BehaviorSubject<CurrencyInputValue> =
-    new BehaviorSubject({ currencyCode: '', amount: 1 });
-
-  protected readonly currencyInputValue$ =
+    new BehaviorSubject({ baseCurrencyCode: '', toCurrencyCode: '', amount: 1, convertedAmount: 1 });
+    
+    protected readonly currencies$ = this.currencyService.fetchCurrencies$();
+    protected readonly currencyInputValue$ =
     this.currencyInputValue.asObservable();
-  protected readonly currencies$ = this.currencyService.fetchCurrencies$();
 
   protected currencyChange(currencyInputValue: CurrencyInputValue): void {
     this.currencyInputValue.next(currencyInputValue);
     this.currencyInputValueChanged.emit(currencyInputValue);
   }
+
 }

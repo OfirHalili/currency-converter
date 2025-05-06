@@ -2,15 +2,19 @@
   <table class="history-table">
     <thead>
       <tr>
-        <th>Currency Code</th>
+        <th>Base Currency</th>
+        <th>To Currency</th>
         <th>Amount</th>
+        <th>Converted Amount</th>
         <th>Time</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of history">
-        <td>{{ item.currencyCode }}</td>
+        <td>{{ item.baseCurrencyCode }}</td>
+        <td>{{ item.toCurrencyCode }}</td>
         <td>{{ item.amount }}</td>
+        <td>{{ item.convertedAmount }}</td>
         <td>{{ item.timestamp | date : "short" }}</td>
       </tr>
     </tbody>
